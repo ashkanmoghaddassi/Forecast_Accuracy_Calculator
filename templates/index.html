@@ -126,14 +126,16 @@
         <form action="/visualize_statistics" method="post">
             <button type="submit">Visualize Statistics</button>
         </form>
-        {% endif %}
-        {% if success_message1 %}
-        <div class="message">{{ success_message1 }}</div> 
         <!-- Export details to Excel -->
         <form action="/export" method="post">
             <button type="submit">Export Details to Excel</button>
         </form>
         {% endif %}
+        {% if success_message1 %}
+        <div class="message">{{ success_message1 }}</div> 
+        {% endif %}
+        
+        
         
         {% if success_message2 %}
         <div class="message">{{ success_message2 }}</div>
