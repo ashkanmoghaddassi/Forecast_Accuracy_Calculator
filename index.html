@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Accuracy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #dff0d8;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            color: #155724;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .chart-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Forecast Accuracy Calculator</h1>
+       
+        <form action="/run_script" method="post">
+            <label for="file">Enter the path to the CSV file:</label>
+            <input type="text" id="file" name="file" placeholder="e.g., /path/to/your/file.csv">
+            <button type="submit">Process CSV</button>
+        </form>
+
+        <!-- Display success message -->
+        {% if success_message %}
+        <div class="message">{{ success_message }}</div>
+        <!-- Display statistics dynamically -->
+        {% if count_column1 %}
+        <p>Count of Customers: {{ count_column1 }}</p>
+        {% endif %}
+        {% if median_column2 %}
+        <p>Median of Percent Error: {{ median_column2 }}</p>
+        {% endif %}
+        <!-- Button to visualize statistics -->
+        <form action="/visualize_statistics" method="post">
+            <button type="submit">Visualize Statistics</button>
+        </form>
+       
+        {% endif %}
+        {% if success_message1 %}
+        <div class="message">{{ success_message1 }}</div> 
+        <!-- Export details to Excel -->
+        <form action="/export" method="post">
+            <button type="submit">Export Details to Excel</button>
+        </form>
+        {% endif %}
+        
+        {% if success_message2 %}
+        <div class="message">{{ success_message2 }}</div>
+        {% endif %}
+        <!-- Placeholder for the chart -->
+        <div class="chart-container">
+            {% if plot_data %}
+            <img src="data:image/png;base64,{{ plot_data }}" alt="Accuracy Plot">
+            {% endif %}
+        </div>
+
+        <!-- Button to visualize statistics -->
+        <form action="/clear" method="post">
+            <button type="submit">Reset</button>
+        </form>
+    </div>
+
+</body>
+</html>
